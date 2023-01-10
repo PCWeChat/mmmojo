@@ -1,0 +1,60 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//chrome/process_version_rc_template.gni")
+
+if (is_win) {
+  process_version_rc_template("mmmojo_version") {
+    template_file = "mmmojo_version.rc.version"
+    output = "$target_gen_dir/mmmojo_version.rc"
+  }
+}
+
+source_set("mmmojo") {
+  # Meta-target, don't link into production code.
+  testonly = true
+  deps = [ ]
+
+  if (!((is_linux || is_chromeos) && current_cpu == "x86")) {
+    deps += [ "//mojo/public" ]
+  }
+
+  if (is_android) {
+    deps += [ "//mojo/public/java/system" ]
+  }
+
+  deps += [ "//mojo/core/embedder" ]
+
+  deps += [
+    "//third_party/mmmojo/common:content_browser_child_process_launcher",
+    "//third_party/mmmojo/common:common",
+  ]
+
+  public_configs = [ "//third_party/mmmojo:mmmojo_config" ]
+
+  defines = [
+    "MMMOJO_SHARED_LIBRARY",
+    "MMMOJO_IMPLEMENTATION",
+  ]
+  
+  sources = [
+    "mmmojo.cc",
+    "mmmojo_log.cc",
+  ]
+
+  if (is_win) {
+    if (current_cpu == "x64") {
+      # make same as output_name
+      sources += [ "mmmojo_x64.def" ]
+    } else {
+      sources += [ "mmmojo_x86.def" ]
+    }
+
+    deps += [ ":mmmojo_version" ]
+  }
+
+  configs += [
+    "//content:content_implementation",
+  ]
+}

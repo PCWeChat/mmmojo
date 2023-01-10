@@ -1,0 +1,40 @@
+
+LIBRARY "flmojo.dll"
+
+; log interface
+EXPORTS
+  FLMojoLog
+  FLMojoLogArg
+
+; read interface
+EXPORTS
+  GetFLMojoReadInfoRequest
+  GetFLMojoReadInfoAttach
+  GetFLMojoReadInfoMethod
+  GetFLMojoReadInfoSync
+  RemoveFLMojoReadInfo
+
+; write interface
+EXPORTS
+  CreateFLMojoWriteInfo
+  SetFLMojoWriteInfoMessagePipe
+  GetFLMojoWriteInfoRequest
+  GetFLMojoWriteInfoAttach
+  SwapFLMojoWriteInfoCallback
+  SwapFLMojoWriteInfoMessage
+  SendFLMojoWriteInfo
+  RemoveFLMojoWriteInfo
+
+; env interface
+EXPORTS
+  CreateFLMojoEnvironment
+  SetFLMojoEnvironmentCallbacks
+  SetFLMojoEnvironmentInitParams
+  AppendFLSubProcessSwitchNative
+  StartFLMojoEnvironment
+  StopFLMojoEnvironment
+  RemoveFLMojoEnvironment
+
+; global interface
+  InitializeFLMojo
+  ShutdownFLMojo

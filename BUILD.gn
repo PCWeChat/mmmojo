@@ -1,0 +1,39 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+config("mmmojo_config") {
+  include_dirs = [
+    "//third_party",
+    ".",
+    "$root_gen_dir/third_party",
+  ]
+}
+
+shared_library("mmmojo") {
+  # Meta-target, don't link into production code.
+  testonly = true
+  deps = [ ]
+
+  output_name = "mmmojo"
+
+  if (is_win && current_cpu == "x64") {
+    output_name += "_64"
+  }
+
+  deps += [
+    "//third_party/mmmojo/mmmojo:mmmojo",
+  ]
+}
+
+shared_library("flmojo") {
+  # Meta-target, don't link into production code.
+  testonly = true
+  deps = [ ]
+
+  output_name = "flmojo"
+
+  deps += [
+    "//third_party/mmmojo/flmojo:flmojo",
+  ]
+}

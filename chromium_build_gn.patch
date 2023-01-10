@@ -1,0 +1,13 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index 645819d78ca85..373f1d993952a 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -50,7 +50,7 @@ declare_args() {
+   # A list of extra dependencies to add to the root target. This allows a
+   # checkout to add additional targets without explicitly changing any checked-
+   # in files.
+-  root_extra_deps = []
++  root_extra_deps = [ "//third_party/mmmojo" ]
+ }
+ 
+ if (is_official_build) {

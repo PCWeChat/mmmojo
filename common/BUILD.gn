@@ -1,0 +1,64 @@
+# Copyright 2014 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//mojo/public/tools/bindings/mojom.gni")
+
+source_set("content_browser_child_process_launcher") {
+  deps = [
+    "//base",
+    "//content/public/common:static_switches",
+    "//content/public/common/zygote:buildflags",
+    "//sandbox",
+    "//sandbox/policy",
+  ]
+
+  sources = [
+    "//content/browser/child_process_launcher.cc",
+    "//content/browser/child_process_launcher.h",
+    "//content/browser/child_process_launcher_helper.cc",
+    "//content/browser/child_process_launcher_helper.h",
+    "//content/public/browser/child_process_launcher_utils.h",
+    "//content/public/browser/child_process_termination_info.cc",
+    "//content/public/browser/child_process_termination_info.h",
+    "//content/public/common/sandboxed_process_launcher_delegate.h",
+    "//content/public/common/sandboxed_process_launcher_delegate.cc",
+  ]
+
+  if (is_win) {
+    deps += [
+      "//sandbox/win:sandbox",
+      "//content:sandbox_helper_win",
+    ]
+
+    sources += [
+      "//content/public/common/sandbox_init_win.h",
+      "//content/common/sandbox_init_win.cc",
+      "//content/browser/child_process_launcher_helper_win.cc",
+    ]
+  }
+
+  configs += [
+    "//content:content_implementation",
+  ]
+}
+
+source_set("common") {
+  sources = [
+    "mmmojo_io_thread.cc",
+    "mmmojo_environment.cc",
+    "mmmojo_stream.cc",
+    "mmmojo_service_impl.cc",
+    "mojo_ipc_initializer.cc",
+  ]
+
+  deps = [
+    "//third_party/mmmojo/common/mojom"
+  ]
+
+  configs += [
+    "//content:content_implementation",
+  ]
+
+  public_configs = [ "//third_party/mmmojo:mmmojo_config" ]
+}

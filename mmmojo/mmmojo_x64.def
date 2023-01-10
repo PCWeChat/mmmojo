@@ -1,0 +1,40 @@
+
+LIBRARY "mmmojo_64.dll"
+
+; log interface
+EXPORTS
+  MMMojoLog
+  MMMojoLogArg
+
+; read interface
+EXPORTS
+  GetMMMojoReadInfoRequest
+  GetMMMojoReadInfoAttach
+  GetMMMojoReadInfoMethod
+  GetMMMojoReadInfoSync
+  RemoveMMMojoReadInfo
+
+; write interface
+EXPORTS
+  CreateMMMojoWriteInfo
+  SetMMMojoWriteInfoMessagePipe
+  GetMMMojoWriteInfoRequest
+  GetMMMojoWriteInfoAttach
+  SwapMMMojoWriteInfoCallback
+  SwapMMMojoWriteInfoMessage
+  SendMMMojoWriteInfo
+  RemoveMMMojoWriteInfo
+
+; env interface
+EXPORTS
+  CreateMMMojoEnvironment
+  SetMMMojoEnvironmentCallbacks
+  SetMMMojoEnvironmentInitParams
+  AppendMMSubProcessSwitchNative
+  StartMMMojoEnvironment
+  StopMMMojoEnvironment
+  RemoveMMMojoEnvironment
+
+; global interface
+  InitializeMMMojo
+  ShutdownMMMojo

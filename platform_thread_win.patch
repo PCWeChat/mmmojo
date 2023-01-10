@@ -1,0 +1,14 @@
+diff --git a/base/threading/platform_thread_win.cc b/base/threading/platform_thread_win.cc
+index 143f0441fd129..375c02cbef3dc 100644
+--- a/base/threading/platform_thread_win.cc
++++ b/base/threading/platform_thread_win.cc
+@@ -456,7 +456,8 @@ void SetCurrentThreadQualityOfService(ThreadType thread_type) {
+   static const auto set_thread_information_fn =
+       reinterpret_cast<decltype(&::SetThreadInformation)>(::GetProcAddress(
+           ::GetModuleHandle(L"kernel32.dll"), "SetThreadInformation"));
+-  DCHECK(set_thread_information_fn);
++  if (!set_thread_information_fn)
++    return;
+ 
+   bool desire_ecoqos = false;
+   switch (thread_type) {
